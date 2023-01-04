@@ -3,43 +3,46 @@ package cn.ecut.tomastu.utils;
 import cn.ecut.tomastu.bean.Flower;
 import cn.ecut.tomastu.bean.Orders;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.swing.plaf.nimbus.State;
+import java.sql.*;
 import java.util.LinkedList;
 
 public class SqlUtils {
+    // base Utils here
     // todo(change statement to preparedStatement)
     public static Statement getStatement() throws Exception {
+        // load JDBC driver&getConnection
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://sh-cynosdbmysql-grp-9l5cq7ps.sql.tencentcdb.com" +
+        Connection c = DriverManager.getConnection("jdbc:mysql://sh-cynosdbmysql-grp-9l5cq7ps.sql.tencentcdb.com" +
                 ":23152/flowerManager?servertime=UTC", "root", "2001Z03z07f?@!");
-        conn.setAutoCommit(false);
+        c.setAutoCommit(false);
 
-//        conn.commit();
-//        smt.close();
-//        conn.close();
-
-        return conn.createStatement();
-
+        // don't forget do this below!
+//        Statement s = c.createStatement();
+//        c.commit();
+//        s.close();
+//        c.close();
+        return c.createStatement();
     }
 
     // table user
     public static boolean login(String username, String password) {
         try {
             Statement s = getStatement();
-//            Connection c = s.getConnection();
+            Connection c = s.getConnection();
             ResultSet resultSet = s.executeQuery("select * from user where username = '" + username + "'");
             String saltedMD5 = "";
             while (resultSet.next()) {
                 saltedMD5 = resultSet.getString("password");
             }
-            s.close();
+
+//            s.close();
 //            c.close();
+
             return PasswordUtils.getSaltverifyMD5(password, saltedMD5);
         } catch (Exception e) {
             e.printStackTrace();
+
             return false;
         }
     }
@@ -48,10 +51,9 @@ public class SqlUtils {
     public static LinkedList<Flower> getFlowerAll() {
         try {
             Statement s = getStatement();
-//            Connection c = s.getConnection();
             ResultSet resultSet = s.executeQuery("select * from flower");
-//            s.close();
-//            c.close();
+
+            // do statement&connection close in getFlowers()
             return getFlowers(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,14 +64,14 @@ public class SqlUtils {
     public static LinkedList<Flower> getFlowerByName(String name) {
         try {
             Statement s = getStatement();
-//            Connection c = s.getConnection();
             ResultSet resultSet = s.executeQuery("select * from flower where name like '%" + name + "%'");
-//            s.close();
-//            c.close();
+
+            // do statement&connection close in getFlowers()
             return getFlowers(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return new LinkedList<>();
     }
 
@@ -82,10 +84,17 @@ public class SqlUtils {
                 result.setStorage(resultSet.getLong("storage"));
                 result.setPrice(resultSet.getDouble("price"));
                 results.add(result);
+
+                Statement s = resultSet.getStatement();
+                Connection c = s.getConnection();
+
+//                s.close();
+//                c.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return results;
     }
 
@@ -94,18 +103,20 @@ public class SqlUtils {
         try {
             Statement s = getStatement();
             Connection c = s.getConnection();
-//            System.out.println("select count(*) from flower where name = '" + name + "'");
             ResultSet r = s.executeQuery("select storage from flower where name = '" + name + "'");
             while(r.next()) {
                 result = r.getInt("storage");
             }
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
+
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return result;
     }
 
@@ -114,18 +125,20 @@ public class SqlUtils {
         try {
             Statement s = getStatement();
             Connection c = s.getConnection();
-//            System.out.println("select count(*) from flower where name = '" + name + "'");
             ResultSet r = s.executeQuery("select count(*) from flower where name = '" + name + "'");
             while(r.next()) {
                 result = r.getInt(1);
             }
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
+
             return result == 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -135,12 +148,14 @@ public class SqlUtils {
             Statement s = getStatement();
             Connection c = s.getConnection();;
             count = s.executeUpdate("update flower set storage = storage - " + orders + " where name = '" + name + "'");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return count != 0;
     }
 
@@ -149,13 +164,16 @@ public class SqlUtils {
         try {
             Statement s = getStatement();
             Connection c = s.getConnection();;
-            count = s.executeUpdate("update flower set name = '" + newName + "', price = " + price + ", storage = " + storage + " where name = '" + oldName + "'");
+            count = s.executeUpdate("update flower set name = '" + newName + "', price = " + price + ", storage = "
+                    + storage + " where name = '" + oldName + "'");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return count != 0;
     }
 
@@ -164,8 +182,9 @@ public class SqlUtils {
             Statement s = getStatement();
             Connection c = s.getConnection();
             s.execute("insert into flower value ('" + newName + "', " + newPrice + ", " + newStorage + ")");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,10 +195,10 @@ public class SqlUtils {
         try {
             Statement s = getStatement();
             Connection c = s.getConnection();
-//            System.out.println(s.executeUpdate("delete from flower where name = '" + name + "'"));
             s.executeUpdate("delete from flower where name = '" + name + "'");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,14 +209,27 @@ public class SqlUtils {
     public static LinkedList<Orders> getOrdersAll() {
         try {
             Statement s = getStatement();
-//            Connection c = s.getConnection();
             ResultSet resultSet = s.executeQuery("select * from orders");
-//            s.close();
-//            c.close();
+
+            // do statement&connection close in getOrders()
             return getOrders(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new LinkedList<>();
+    }
+
+    public static LinkedList<Orders> getOrdersById(String ordersId) {
+        try {
+            Statement s = getStatement();
+            ResultSet resultSet = s.executeQuery("select * from orders where orders_id = " + ordersId);
+
+            // do statement&connection close in getOrders()
+            return getOrders(resultSet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return new LinkedList<>();
     }
 
@@ -213,35 +245,29 @@ public class SqlUtils {
                 result.setOrdersDate(resultSet.getDate("orders_date"));
                 result.setFlowerName(resultSet.getString("flower_name"));
                 results.add(result);
+
+                Statement s = resultSet.getStatement();
+                Connection c = s.getConnection();
+
+//                s.close();
+//                c.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return results;
     }
 
-    public static LinkedList<Orders> getOrdersById(String ordersId) {
-        try {
-            Statement s = getStatement();
-//            Connection c = s.getConnection();
-            ResultSet resultSet = s.executeQuery("select * from orders where orders_id = " + ordersId);
-//            s.close();
-//            c.close();
-            return getOrders(resultSet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new LinkedList<>();
-    }
 
     public static void deleteOrdersById(Long ordersId) {
         try {
             Statement s = getStatement();
             Connection c = s.getConnection();
-//            System.out.println(s.executeUpdate("delete from flower where name = '" + name + "'"));
             s.executeUpdate("delete from orders where orders_id = " + ordersId);
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -253,8 +279,9 @@ public class SqlUtils {
             Statement s = getStatement();
             Connection c = s.getConnection();
             s.execute("insert into orders(flower_name, amount, discount, operator) value ('" + flowerName + "', " + amount + ", " + discount + ", '" + operator + "')");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -268,12 +295,14 @@ public class SqlUtils {
             Statement s = getStatement();
             Connection c = s.getConnection();;
             count = s.executeUpdate("update orders set flower_name = '" + flowerName + "', amount = " + amount + ", discount = " + discount + " where orders_id = '" + ordersId + "'");
+
             c.commit();
-            s.close();
+//            s.close();
 //            c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         return count != 0;
     }
 }

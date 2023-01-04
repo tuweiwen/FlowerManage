@@ -1,5 +1,6 @@
 create database flowerManager;
 use flowerManager;
+
 create table user (
     username varchar(20) primary key not null unique,
     password varchar(100) not null,
@@ -29,3 +30,27 @@ insert into flower value ("lotus", 2.4, 12);
 insert into flower value ("lily", 28.43, 293);
 insert into flower value ("rose", 30.20, 100);
 insert into flower value ("sunflower", 13.40, 482);
+
+insert into orders(flower_name, amount, discount, operator) value ('lotus', 100, 1, 'admin');
+insert into orders(flower_name, amount, discount, operator) value ('rose', 99, 2, 'admin');
+insert into orders(flower_name, amount, discount, operator) value ('china rose', 98, 3, 'admin');
+insert into orders(flower_name, amount, discount, operator) value ('sunflower', 97, 4, 'admin');
+insert into orders(flower_name, amount, discount, operator) value ('lily', 96, 5, 'admin');
+
+-- DDL SQL
+/*select * from user;
+select * from flower;
+select * from orders;
+select count(*) from flower where name = 'lotus';
+
+delete from flower where name = 'lily';
+delete from flower where name = 'sunflower';
+delete from orders where orders_id = 4;
+
+update flower set name = 'lily', price = 0.00, storage = 0 where name = 'lily';
+update orders set flower_name = 'lily', amount = 1, discount = 1 where orders_id = 2;
+
+drop table flower;
+drop table orders;
+
+truncate table orders;*/

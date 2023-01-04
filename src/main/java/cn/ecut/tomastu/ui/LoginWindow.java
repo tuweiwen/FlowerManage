@@ -66,7 +66,7 @@ public class LoginWindow {
         menuMenu.add(exit);
         menuBar.add(menuMenu);
 
-        // assembled internal frame to frame
+        // assembled menuBar&box to frame
         loginFrame.setJMenuBar(menuBar);
         loginFrame.setContentPane(vBox);
 

@@ -48,24 +48,25 @@ public class InventoryAddWindow {
             try {
                 newPrice = Double.parseDouble(flowerPriceTF.getText().trim());
                 newStorage = Long.parseLong(flowerStorageTF.getText().trim());
+
+                if (newPrice < 0 || newStorage < 0) {
+                    JOptionPane.showMessageDialog(inventoryUpdateFrame, "DO NOT ENTER INVALIDED VALUE! \n(RANGE : " +
+                            "EQUAL OR LARGER THAN 0) ", "ERROR!", JOptionPane.ERROR_MESSAGE);
+                } else if (SqlUtils.queryFlowerUnique(newName)) {
+                    SqlUtils.addFlower(newName, newPrice, newStorage);
+                    JOptionPane.showMessageDialog(inventoryUpdateFrame, "update success!", "success!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    oriTable.setModel(new InventoryTM());
+                    inventoryUpdateFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(inventoryUpdateFrame, "there is already a flower name \""
+                            + flowerNameTF.getText() + "\"!\nupdate failed!", "failed!", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (NumberFormatException exp) {
                 JOptionPane.showMessageDialog(inventoryUpdateFrame, "DO NOT ENTER INVALIDED VALUE\n" +
                         "(E.G. : NOT-NUM VALUE，EMPTY VALUE...", "ERROR!", JOptionPane.ERROR_MESSAGE);
             }
-            if (newPrice < 0 || newStorage < 0) {
-                JOptionPane.showMessageDialog(inventoryUpdateFrame, "DO NOT ENTER INVALIDED VALUE! \n(RANGE : " +
-                        "EQUAL OR LARGER THAN 0) ", "ERROR!", JOptionPane.ERROR_MESSAGE);
-            }
-            if (SqlUtils.queryFlowerUnique(newName)) {
-                SqlUtils.addFlower(newName, newPrice, newStorage);
-                JOptionPane.showMessageDialog(inventoryUpdateFrame, "update success!", "success!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                oriTable.setModel(new InventoryTM());
-                inventoryUpdateFrame.dispose();
-            } else {
-                JOptionPane.showMessageDialog(inventoryUpdateFrame, "there is already a flower name \""
-                        + flowerNameTF.getText() + "\"!\nupdate failed!", "failed!", JOptionPane.ERROR_MESSAGE);
-            }
+
         });
 
         cancelBtn.addActionListener(e -> {

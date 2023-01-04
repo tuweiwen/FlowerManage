@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ManageWindow {
+    /**
+     * Flower Manage System main window, start frame after login successful via LoginWindow.
+     * @param args - 0 for userName
+     */
     public static void main(String[] args) {
         // init TableModel
         InventoryTM inventoryTM = new InventoryTM();
@@ -28,10 +32,7 @@ public class ManageWindow {
 
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
         JPanel inventoryPanel = new JPanel(new BorderLayout());
-        GridBagConstraints c = null;
-//        inventoryPanel.setBackground(Color.BLUE);
         JPanel ordersPanel = new JPanel(new BorderLayout());
-//        ordersPanel.setBackground(Color.GREEN);
 
         tabbedPane.addTab("inventory", inventoryPanel);
         tabbedPane.addTab("order", ordersPanel);

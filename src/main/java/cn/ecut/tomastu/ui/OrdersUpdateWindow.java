@@ -49,27 +49,29 @@ public class OrdersUpdateWindow {
             try {
                 ordersAmount = Long.parseLong(amountTF.getText().trim());
                 ordersDiscount = Double.parseDouble(discountTF.getText().trim());
+
+                if (ordersAmount <= 0 || ordersDiscount < 0) {
+                    JOptionPane.showMessageDialog(ordersUpdateFrame, "DO NOT ENTER INVALIDED VALUE! \n(RANGE : " +
+                                    "EQUAL OR LARGER THAN 0 IN DISCOUNT, LARGER THAN 0 IN AMOUNT) ", "ERROR!",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (ordersFlowerName.equals("")) {
+                    JOptionPane.showMessageDialog(ordersUpdateFrame, "PLEASE ENTER FLOWER NAME ", "ERROR!",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (SqlUtils.queryFlowerUnique(ordersFlowerName)) {
+                    JOptionPane.showMessageDialog(ordersUpdateFrame, "FLOWER DOESN'T EXIST! ", "ERROR!",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    SqlUtils.updateOrdersAll(updateData.getOrdersId(), ordersFlowerName, ordersAmount, ordersDiscount);
+                    JOptionPane.showMessageDialog(ordersUpdateFrame, "update success!", "success!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    oriTable.setModel(new OrdersTM());
+                    ordersUpdateFrame.dispose();
+                }
             } catch (NumberFormatException exp) {
                 JOptionPane.showMessageDialog(ordersUpdateFrame, "DO NOT ENTER INVALIDED VALUE\n" +
                         "(E.G. : NOT-NUM VALUE，EMPTY VALUE...", "ERROR!", JOptionPane.ERROR_MESSAGE);
             }
-            if (ordersAmount <= 0 || ordersDiscount < 0) {
-                JOptionPane.showMessageDialog(ordersUpdateFrame, "DO NOT ENTER INVALIDED VALUE! \n(RANGE : " +
-                                "EQUAL OR LARGER THAN 0 IN DISCOUNT, LARGER THAN 0 IN AMOUNT) ", "ERROR!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (ordersFlowerName.equals("")) {
-                JOptionPane.showMessageDialog(ordersUpdateFrame, "PLEASE ENTER FLOWER NAME ", "ERROR!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (SqlUtils.queryFlowerUnique(ordersFlowerName)) {
-                JOptionPane.showMessageDialog(ordersUpdateFrame, "FLOWER DOESN'T EXIST! ", "ERROR!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else {
-                SqlUtils.updateOrdersAll(updateData.getOrdersId(), ordersFlowerName, ordersAmount, ordersDiscount);
-                JOptionPane.showMessageDialog(ordersUpdateFrame, "update success!", "success!",
-                        JOptionPane.INFORMATION_MESSAGE);
-                oriTable.setModel(new OrdersTM());
-                ordersUpdateFrame.dispose();
-            }
+
         });
 
         cancelBtn.addActionListener(e -> {
