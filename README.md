@@ -6,7 +6,7 @@
   |------ tableModel    (TableModel for JTable)
   |------ ui            (Application User Interface)
   |------ utils         (Utils for some feature)
-  |------ Main.java     (Application entrance)
+  |______ Main.java     (Application entrance)
 ```
 
 ## 使用方法

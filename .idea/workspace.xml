@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddbec062-5062-4650-b4d7-bc18d08f874d" name="变更" comment="first version of FlowerManage">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="ddbec062-5062-4650-b4d7-bc18d08f874d" name="变更" comment="divide UI feature into separate Java class, add README.md &amp; DatabaseInit.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/InventoryAddWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/InventoryAddWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/InventoryUpdateWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/InventoryUpdateWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/LoginWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/LoginWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/ManageWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/ManageWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/OrdersAddWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/OrdersAddWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/OrdersUpdateWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/OrdersUpdateWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/ui/temp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/utils/SqlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/utils/SqlUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/ecut/tomastu/utils/UtilsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DatabaseInit.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DatabaseInit.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +23,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="6caa548b-3a7e-4d82-a690-6db8eeed4f34" />
+        <option name="url" value="https://github.com/tuweiwen/FlowerManage.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Java/jdk1.8.0_261/src.zip!/java/util/Arrays.java" root0="SKIP_INSPECTION" />
@@ -106,6 +110,10 @@
       <workItem from="1670286181116" duration="7320000" />
       <workItem from="1670392872245" duration="73000" />
       <workItem from="1670395886358" duration="971000" />
+      <workItem from="1672812087107" duration="3241000" />
+      <workItem from="1672849754792" duration="4000" />
+      <workItem from="1673182669000" duration="2900000" />
+      <workItem from="1673187589661" duration="548000" />
     </task>
     <task id="LOCAL-00001" summary="first version of FlowerManage">
       <created>1670253659924</created>
@@ -114,14 +122,33 @@
       <option name="project" value="LOCAL" />
       <updated>1670253659924</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="divide UI feature into separate Java class, add README.md &amp; DatabaseInit.sql">
+      <created>1672813267564</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672813267564</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first version of FlowerManage" />
-    <option name="LAST_COMMIT_MESSAGE" value="first version of FlowerManage" />
+    <MESSAGE value="divide UI feature into separate Java class, add README.md &amp; DatabaseInit.sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="divide UI feature into separate Java class, add README.md &amp; DatabaseInit.sql" />
   </component>
 </project>
